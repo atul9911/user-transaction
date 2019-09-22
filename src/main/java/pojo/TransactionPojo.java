@@ -4,7 +4,7 @@ import enums.TransactionStatus;
 
 import java.util.Date;
 
-public class Transaction {
+public class TransactionPojo {
     Long senderWalletId;
     Long beneficiaryWalletId;
     Long senderUserId;
@@ -72,9 +72,9 @@ public class Transaction {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Transaction)) return false;
+        if (!(o instanceof TransactionPojo)) return false;
 
-        Transaction that = (Transaction) o;
+        TransactionPojo that = (TransactionPojo) o;
 
         if (getSenderWalletId() != null ? !getSenderWalletId().equals(that.getSenderWalletId()) : that.getSenderWalletId() != null)
             return false;
@@ -103,7 +103,7 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "Transaction{" +
+        return "TransactionPojo{" +
                 "senderWalletId=" + senderWalletId +
                 ", beneficiaryWalletId=" + beneficiaryWalletId +
                 ", senderUserId=" + senderUserId +

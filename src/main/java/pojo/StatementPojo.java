@@ -5,7 +5,7 @@ import enums.TransactionType;
 
 import java.util.Date;
 
-public class Statement {
+public class StatementPojo {
     Long userId;
     Double amount;
     TransactionType transactionType;
@@ -55,17 +55,18 @@ public class Statement {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Statement)) return false;
+        if (!(o instanceof StatementPojo)) return false;
 
-        Statement statement = (Statement) o;
+        StatementPojo statementPojo = (StatementPojo) o;
 
-        if (getUserId() != null ? !getUserId().equals(statement.getUserId()) : statement.getUserId() != null)
+        if (getUserId() != null ? !getUserId().equals(statementPojo.getUserId()) : statementPojo.getUserId() != null)
             return false;
-        if (getAmount() != null ? !getAmount().equals(statement.getAmount()) : statement.getAmount() != null)
+        if (getAmount() != null ? !getAmount().equals(statementPojo.getAmount()) : statementPojo.getAmount() != null)
             return false;
-        if (getTransactionType() != statement.getTransactionType()) return false;
-        if (getTransactionStatus() != statement.getTransactionStatus()) return false;
-        return getCreatedAt() != null ? getCreatedAt().equals(statement.getCreatedAt()) : statement.getCreatedAt() == null;
+        if (getTransactionType() != statementPojo.getTransactionType()) return false;
+        if (getTransactionStatus() != statementPojo.getTransactionStatus()) return false;
+        return getCreatedAt() != null ? getCreatedAt().equals(statementPojo.getCreatedAt()) : statementPojo
+            .getCreatedAt() == null;
     }
 
     @Override
@@ -80,7 +81,7 @@ public class Statement {
 
     @Override
     public String toString() {
-        return "Statement{" +
+        return "StatementPojo{" +
                 "userId=" + userId +
                 ", amount=" + amount +
                 ", transactionType=" + transactionType +

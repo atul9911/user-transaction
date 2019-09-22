@@ -2,7 +2,7 @@ package pojo;
 
 import enums.WalletStatus;
 
-public class Wallet {
+public class WalletPojo {
     Long id;
     Long userId;
     WalletStatus walletStatus;
@@ -43,14 +43,14 @@ public class Wallet {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Wallet)) return false;
+        if (!(o instanceof WalletPojo)) return false;
 
-        Wallet wallet = (Wallet) o;
+        WalletPojo walletPojo = (WalletPojo) o;
 
-        if (!getId().equals(wallet.getId())) return false;
-        if (!getUserId().equals(wallet.getUserId())) return false;
-        if (getWalletStatus() != wallet.getWalletStatus()) return false;
-        return getBalance().equals(wallet.getBalance());
+        if (!getId().equals(walletPojo.getId())) return false;
+        if (!getUserId().equals(walletPojo.getUserId())) return false;
+        if (getWalletStatus() != walletPojo.getWalletStatus()) return false;
+        return getBalance().equals(walletPojo.getBalance());
     }
 
     @Override

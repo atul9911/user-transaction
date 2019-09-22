@@ -1,19 +1,10 @@
 package pojo;
 
-public class User {
-    Long id;
+public class UserPojo {
     String firstName;
     String lastName;
     String email;
     String mobile;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -50,16 +41,16 @@ public class User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (!(o instanceof UserPojo)) return false;
 
-        User user = (User) o;
+        UserPojo userPojo = (UserPojo) o;
 
-        if (getFirstName() != null ? !getFirstName().equals(user.getFirstName()) : user.getFirstName() != null)
+        if (getFirstName() != null ? !getFirstName().equals(userPojo.getFirstName()) : userPojo.getFirstName() != null)
             return false;
-        if (getLastName() != null ? !getLastName().equals(user.getLastName()) : user.getLastName() != null)
+        if (getLastName() != null ? !getLastName().equals(userPojo.getLastName()) : userPojo.getLastName() != null)
             return false;
-        if (getEmail() != null ? !getEmail().equals(user.getEmail()) : user.getEmail() != null) return false;
-        return getMobile() != null ? getMobile().equals(user.getMobile()) : user.getMobile() == null;
+        if (getEmail() != null ? !getEmail().equals(userPojo.getEmail()) : userPojo.getEmail() != null) return false;
+        return getMobile() != null ? getMobile().equals(userPojo.getMobile()) : userPojo.getMobile() == null;
     }
 
     @Override
@@ -73,7 +64,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserPojo{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
