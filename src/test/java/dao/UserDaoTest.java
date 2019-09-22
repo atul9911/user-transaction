@@ -30,7 +30,7 @@ public class UserDaoTest {
   @Test
   public void fetchUserTest(){
     User user = new User();
-    user.setEmail("abc@test.com");
+    user.setEmail("abc@example.com");
     user.setFirstName("Test");
     user.setLastName("Test");
     user.setMobile("981998898");

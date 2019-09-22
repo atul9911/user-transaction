@@ -1,0 +1,42 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.springBeans
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+
+### Git merge files ###
+*.orig
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+.settings/*
+target/*
+/target/
+docker/ROOT.war
+docker/ROOT.jar
+out/
+tomcat.*/
+
+
+.mvn/*
+/.mvn/
+/mvnw
+/mvnw.cmd
+
+.DS_Store

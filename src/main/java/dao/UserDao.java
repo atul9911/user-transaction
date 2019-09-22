@@ -9,6 +9,7 @@ public class UserDao implements BaseDaoService {
     Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     session.beginTransaction();
     Integer id = (Integer) session.save(user);
+    session.getTransaction().commit();;
     return id;
   }
 
@@ -16,6 +17,7 @@ public class UserDao implements BaseDaoService {
     Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     session.beginTransaction();
     User user = (User) session.get(User.class, id);
+    session.getTransaction().commit();
     return user;
   }
 
