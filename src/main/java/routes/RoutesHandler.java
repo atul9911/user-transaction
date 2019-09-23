@@ -1,9 +1,7 @@
 package routes;
 
-import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Headers;
-import io.undertow.util.HttpString;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,22 +11,12 @@ import service.BaseServiceRegistry;
 import service.UserService;
 import utils.CommonUtil;
 
-public class RoutesHandler {
+class RoutesHandler {
 
-  static UserService userService;
+  private static final UserService userService;
 
   static  {
     userService = (UserService) BaseServiceRegistry.getService("user");
-  }
-
-  private HttpString header;
-  private String value;
-  private HttpHandler next;
-
-  public void setHeaderHandler(final HttpHandler next, final String header, final String value) {
-    this.next = next;
-    this.value = value;
-    this.header = new HttpString(header);
   }
 
 
@@ -47,24 +35,22 @@ public class RoutesHandler {
   }
 
 
-  public static void validateUserHandler(HttpServerExchange exchange) throws Exception {
+  public static void validateUserHandler(HttpServerExchange exchange) {
     exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "application/json");
     exchange.getResponseSender().send("{res:\"Hello World\"}");
   }
 
 
-  public static void checkUserStatement(HttpServerExchange httpServerExchange)
-      throws Exception {
+  public static void checkUserStatement() {
   }
 
 
-  public static void makeTransaction(HttpServerExchange httpServerExchange)
-      throws Exception {
+  public static void makeTransaction() {
 
   }
 
 
-  public static void getWallet(HttpServerExchange httpServerExchange) throws Exception {
+  public static void getWallet() {
   }
 
 }

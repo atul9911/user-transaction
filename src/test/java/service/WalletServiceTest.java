@@ -14,15 +14,11 @@ import org.junit.Test;
 
 public class WalletServiceTest {
 
-  static UserDao userDao;
+  private static UserDao userDao;
 
-  WalletService walletService;
+  private WalletService walletService;
 
-  static User walletUser;
-
-  static Integer userId;
-
-  static User user;
+  private static User user;
 
   private static Integer createUser(User user) throws Exception {
     return userDao.createUser(user);
@@ -42,8 +38,8 @@ public class WalletServiceTest {
     user.setLastName("Test");
     user.setMobile("981998898");
     user.setStatus(UserStatus.ACTIVE);
-    userId = createUser(user);
-    walletUser = userDao.getUser(userId);
+    Integer userId = createUser(user);
+    User walletUser = userDao.getUser(userId);
   }
 
   @Before
@@ -77,7 +73,7 @@ public class WalletServiceTest {
     walletService.addMoneyToWallet(500.00, walletId);
     Wallet wallet = walletService.validateWallet(walletId);
     assertEquals(wallet.getId(), walletId);
-    assertEquals(Double.valueOf(wallet.getBalance()), 500.00D, 0.00);
+    assertEquals(wallet.getBalance(), 500.00D, 0.00);
 
   }
 

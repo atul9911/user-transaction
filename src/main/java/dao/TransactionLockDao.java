@@ -9,7 +9,7 @@ import utils.HibernateUtil;
 
 public class TransactionLockDao implements BaseDao {
 
-  public void acquireLock(Integer transactionId, TransactionStatus status) throws SQLException {
+  public void acquireLock(Integer transactionId, TransactionStatus status) {
     Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     session.beginTransaction();
     TransactionLock transactionLock = new TransactionLock();
@@ -19,15 +19,7 @@ public class TransactionLockDao implements BaseDao {
     session.getTransaction().commit();
   }
 
-  public void releaseLock(Integer transactionId) {
-    Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-    session.beginTransaction();
-    Query q = session.createQuery("delete from TransactionLock where TRANSACTIONID=:transactionId");
-    q.setParameter("transactionId", transactionId);
-    session.getTransaction().commit();
-  }
-
-  @Override
+  @SuppressWarnings("unchecked")
   public TransactionLockDao getDaoObject() {
     return new TransactionLockDao();
   }

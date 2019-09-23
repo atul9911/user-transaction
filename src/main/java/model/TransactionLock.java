@@ -16,19 +16,11 @@ public class TransactionLock extends BaseModel {
   private Integer transactionId;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "STATUS", unique = false, nullable = false, length = 100)
+  @Column(name = "STATUS", nullable = false, length = 100)
   private TransactionStatus transactionStatus;
-
-  public Integer getTransactionId() {
-    return transactionId;
-  }
 
   public void setTransactionId(Integer transactionId) {
     this.transactionId = transactionId;
-  }
-
-  public TransactionStatus getTransactionStatus() {
-    return transactionStatus;
   }
 
   public void setTransactionStatus(TransactionStatus transactionStatus) {

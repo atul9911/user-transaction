@@ -5,13 +5,13 @@ import enums.TransactionStatus;
 import java.util.Date;
 
 public class TransactionPojo {
-    Integer senderWalletId;
-    Integer beneficiaryWalletId;
-    Integer senderUserId;
-    Integer beneficiaryUserId;
-    Double amount;
-    TransactionStatus transactionStatus;
-    Date createdAt;
+    private Integer senderWalletId;
+    private Integer beneficiaryWalletId;
+    private Integer senderUserId;
+    private Integer beneficiaryUserId;
+    private Double amount;
+    private TransactionStatus transactionStatus;
+    private Date createdAt;
 
     public Integer getSenderWalletId() {
         return senderWalletId;
@@ -61,12 +61,8 @@ public class TransactionPojo {
         this.transactionStatus = transactionStatus;
     }
 
-    public Date getCreatedAt() {
+    private Date getCreatedAt() {
         return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     @Override

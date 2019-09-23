@@ -11,23 +11,23 @@ import javax.persistence.Table;
 @Table(name = "Transaction")
 public class Transaction extends BaseModel {
 
-  @Column(name = "SENDERWALLETID", unique = false, nullable = false, length = 100)
+  @Column(name = "SENDERWALLETID", nullable = false, length = 100)
   private Integer senderWalletId;
 
-  @Column(name = "BENEFICIARYWALLETID", unique = false, nullable = false, length = 100)
+  @Column(name = "BENEFICIARYWALLETID", nullable = false, length = 100)
   private Integer beneficiaryWalletId;
 
-  @Column(name = "SENDERID", unique = false, nullable = false, length = 100)
+  @Column(name = "SENDERID", nullable = false, length = 100)
   private Integer senderUserId;
 
-  @Column(name = "BENEFICIARYID", unique = false, nullable = false, length = 100)
+  @Column(name = "BENEFICIARYID", nullable = false, length = 100)
   private Integer beneficiaryUserId;
 
-  @Column(name = "AMOUNT", unique = false, nullable = false, length = 100)
+  @Column(name = "AMOUNT", nullable = false, length = 100)
   private Double amount;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "STATUS", unique = false, nullable = false, length = 100)
+  @Column(name = "STATUS", nullable = false, length = 100)
   private TransactionStatus transactionStatus;
 
   public Integer getSenderWalletId() {

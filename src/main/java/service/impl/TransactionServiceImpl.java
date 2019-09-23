@@ -10,7 +10,6 @@ import enums.UserStatus;
 import exception.TransactionException;
 import exception.UserException;
 import java.sql.SQLException;
-import java.util.List;
 import model.Transaction;
 import model.User;
 import model.Wallet;
@@ -24,15 +23,15 @@ import utils.NullOrEmptyCheckerUtil;
 
 public class TransactionServiceImpl implements TransactionService {
 
-  BaseDaoRegistry baseDaoRegistry = BaseDaoRegistry.getBaseDaoRegistry();
+  private final BaseDaoRegistry baseDaoRegistry = BaseDaoRegistry.getBaseDaoRegistry();
 
-  TransactionDao transactionDao = baseDaoRegistry.getTransactionDaoInstance();
+  private final TransactionDao transactionDao = baseDaoRegistry.getTransactionDaoInstance();
 
-  UserDao userDao = baseDaoRegistry.getUserDaoInstance();
+  private final UserDao userDao = baseDaoRegistry.getUserDaoInstance();
 
-  WalletDao walletDao = baseDaoRegistry.getWalletDaoInstance();
+  private final WalletDao walletDao = baseDaoRegistry.getWalletDaoInstance();
 
-  TransactionLockDao transactionLockDao = baseDaoRegistry.getTransactionLockDaoInstance();
+  private final TransactionLockDao transactionLockDao = baseDaoRegistry.getTransactionLockDaoInstance();
 
   @Override
   public Integer initiateTransaction(TransactionPojo transactionPojo)
@@ -54,7 +53,7 @@ public class TransactionServiceImpl implements TransactionService {
     return transactionDao.createTransaction(transaction);
   }
 
-  public void validateBeneficiaryAndSender(TransactionPojo transactionPojo)
+  private void validateBeneficiaryAndSender(TransactionPojo transactionPojo)
       throws UserException, TransactionException {
     User beneficiary = userDao.getUser(transactionPojo.getBeneficiaryUserId());
     if (NullOrEmptyCheckerUtil.isNullOrEmpty(beneficiary) || UserStatus.INACTIVE
@@ -149,8 +148,7 @@ public class TransactionServiceImpl implements TransactionService {
   }
 
   private void updateBalancesAndCommitTransaction(Wallet beneficiary, Wallet sender,
-      Transaction transaction)
-      throws SQLException {
+      Transaction transaction) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     session.beginTransaction();
     session.update(beneficiary);
@@ -161,8 +159,4 @@ public class TransactionServiceImpl implements TransactionService {
     session.getTransaction().commit();
   }
 
-  @Override
-  public List<TransactionPojo> getTransactions() throws TransactionException {
-    return null;
-  }
 }

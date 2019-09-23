@@ -5,12 +5,12 @@ public class BaseException extends RuntimeException {
 
   private final int statusCode;
 
-  public BaseException() {
+  BaseException() {
     super();
     this.statusCode = 500;
   }
 
-  public BaseException(int statusCode, String message) {
+  BaseException(int statusCode, String message) {
     super(message);
     this.statusCode = statusCode;
   }

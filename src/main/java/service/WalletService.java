@@ -10,9 +10,5 @@ public interface WalletService extends BaseService {
 
   Wallet validateWallet(Integer id) throws WalletException;
 
-  Double getWalletBalanceByWalletId(Integer id) throws WalletException;
-
-  Double getWalletBalanceByUserId(Integer userId) throws WalletException;
-
-  void addMoneyToWallet(Double amount, Integer walletId) throws Exception;
+  void addMoneyToWallet(Double amount, Integer walletId);
 }

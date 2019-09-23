@@ -14,9 +14,9 @@ import utils.NullOrEmptyCheckerUtil;
 
 public class UserServiceImpl implements UserService {
 
-  BaseDaoRegistry baseDaoRegistry = BaseDaoRegistry.getBaseDaoRegistry();
+  private final BaseDaoRegistry baseDaoRegistry = BaseDaoRegistry.getBaseDaoRegistry();
 
-  UserDao userDao = baseDaoRegistry.getUserDaoInstance();
+  private final UserDao userDao = baseDaoRegistry.getUserDaoInstance();
 
   @Override
   public Integer addUser(UserPojo userPojo) throws UserException {
@@ -28,8 +28,7 @@ public class UserServiceImpl implements UserService {
       user.setFirstName(userPojo.getFirstName());
       user.setLastName(userPojo.getLastName());
       user.setStatus(UserStatus.ACTIVE);
-      Integer id = userDao.createUser(user);
-      return id;
+      return userDao.createUser(user);
     } catch (UserException usex) {
       throw usex;
     } catch (ConstraintViolationException e) {

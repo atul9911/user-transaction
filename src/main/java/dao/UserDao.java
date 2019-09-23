@@ -6,7 +6,7 @@ import utils.HibernateUtil;
 
 public class UserDao implements BaseDao {
 
-  public Integer createUser(User user) throws Exception {
+  public Integer createUser(User user) {
     Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     session.beginTransaction();
     Integer id = (Integer) session.save(user);
@@ -22,7 +22,7 @@ public class UserDao implements BaseDao {
     return user;
   }
 
-  @Override
+  @SuppressWarnings("unchecked")
   public UserDao getDaoObject() {
     return new UserDao();
   }

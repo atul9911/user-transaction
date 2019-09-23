@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class CommonUtil {
 
-  public static ObjectMapper objectMapper;
+  public static final ObjectMapper objectMapper;
 
   static {
     objectMapper = new ObjectMapper();
@@ -22,12 +22,6 @@ public class CommonUtil {
 
   public static <T> T getClassObjectFromStream(String sting, Class<T> responseClass) throws Exception {
     return objectMapper.readValue(sting, responseClass);
-  }
-
-  public static String toString(InputStream is) throws IOException {
-    try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
-      return br.lines().collect(Collectors.joining(System.lineSeparator()));
-    }
   }
 
 }

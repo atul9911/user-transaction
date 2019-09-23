@@ -6,7 +6,7 @@ import io.undertow.server.handlers.PathHandler;
 import io.undertow.util.Headers;
 import routes.Routes;
 
-public class MoneyTransferApplication {
+class MoneyTransferApplication {
 
   public static void main(String[] args) {
     Undertow.Builder builder = Undertow.builder();

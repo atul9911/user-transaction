@@ -15,17 +15,17 @@ public class User extends BaseModel {
   @Column(name = "EMAIL", unique = true, nullable = false, length = 1000)
   private String email;
 
-  @Column(name = "FIRST_NAME", unique = false, nullable = false, length = 100)
+  @Column(name = "FIRST_NAME", nullable = false, length = 100)
   private String firstName;
 
-  @Column(name = "LAST_NAME", unique = false, nullable = true, length = 100)
+  @Column(name = "LAST_NAME", length = 100)
   private String lastName;
 
-  @Column(name = "mobile", unique = false, nullable = false, length = 100)
+  @Column(name = "mobile", nullable = false, length = 100)
   private String mobile;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "status", unique = false, nullable = false, length = 100)
+  @Column(name = "status", nullable = false, length = 100)
   private UserStatus status;
 
   public String getEmail() {

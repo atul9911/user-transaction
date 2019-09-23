@@ -14,7 +14,7 @@ public class Wallet extends BaseModel {
   private Integer userId;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "STATUS", unique = false, nullable = false, length = 100)
+  @Column(name = "STATUS", nullable = false, length = 100)
   private WalletStatus walletStatus;
 
   @Column(name = "BALANCE", unique = false, nullable = false, length = 100)

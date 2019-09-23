@@ -37,8 +37,4 @@ public class HibernateUtil {
     return sessionFactory;
   }
 
-  public synchronized static void shutdown()
-  {
-    getSessionFactory().close();
-  }
 }

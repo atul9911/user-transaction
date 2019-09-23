@@ -18,22 +18,14 @@ import pojo.TransactionPojo;
 
 public class TransactionServiceTest {
 
-  static UserDao userDao;
-  static WalletDao walletDao;
-  static User sender;
-  static User beneficiary;
-  static Wallet senderWallet;
-  static Wallet beneficiaryWallet;
+  private static UserDao userDao;
+  private static WalletDao walletDao;
+  private static User sender;
+  private static User beneficiary;
+  private static Wallet senderWallet;
+  private static Wallet beneficiaryWallet;
 
-  TransactionService transactionService;
-
-  private static Integer createUser(User user) throws Exception {
-    return userDao.createUser(user);
-  }
-
-  private static Integer createWallet(Wallet wallet) throws Exception {
-    return walletDao.createWallet(wallet);
-  }
+  private TransactionService transactionService;
 
   private static String randomestring() {
     String generatedstring = RandomStringUtils.randomAlphabetic(8);

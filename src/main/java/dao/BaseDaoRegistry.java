@@ -1,7 +1,5 @@
 package dao;
 
-import model.TransactionLock;
-
 public final class BaseDaoRegistry {
 
   private static BaseDaoRegistry baseDaoRegistry;

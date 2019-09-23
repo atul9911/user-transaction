@@ -8,7 +8,7 @@ import service.impl.WallerServiceImpl;
 
 public class BaseServiceRegistry {
 
-  static Map<String, BaseService> baseServiceList;
+  private static final Map<String, BaseService> baseServiceList;
 
   static {
     baseServiceList = new ConcurrentHashMap<>();

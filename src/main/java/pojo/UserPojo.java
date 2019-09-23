@@ -1,10 +1,10 @@
 package pojo;
 
 public class UserPojo {
-    String firstName;
-    String lastName;
-    String email;
-    String mobile;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String mobile;
 
     public String getFirstName() {
         return firstName;

@@ -17,13 +17,13 @@ public class BaseModel {
   @Basic(optional = false)
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   @Column(name = "id")
-  protected Integer id;
+  private Integer id;
 
   @Column(name = "created")
-  protected Date created;
+  private Date created;
 
   @Column(name = "updated", insertable = false, updatable = false)
-  protected Date updated;
+  private Date updated;
 
   public Integer getId() {
     return id;
@@ -33,20 +33,5 @@ public class BaseModel {
     this.id = id;
   }
 
-  public Date getCreated() {
-    return created;
-  }
-
-  public void setCreated(Date created) {
-    this.created = created;
-  }
-
-  public Date getUpdated() {
-    return updated;
-  }
-
-  public void setUpdated(Date updated) {
-    this.updated = updated;
-  }
 }
 

@@ -11,7 +11,7 @@ import pojo.UserPojo;
 
 public class UserServiceTest {
 
-  UserService userService;
+  private UserService userService;
 
   @Before
   public void intitalize() {

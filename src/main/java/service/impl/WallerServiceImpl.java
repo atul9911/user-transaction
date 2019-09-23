@@ -12,29 +12,11 @@ import utils.NullOrEmptyCheckerUtil;
 
 public class WallerServiceImpl implements WalletService {
 
-  BaseDaoRegistry baseDaoRegistry = BaseDaoRegistry.getBaseDaoRegistry();
+  private final BaseDaoRegistry baseDaoRegistry = BaseDaoRegistry.getBaseDaoRegistry();
 
-  WalletDao walletDao = baseDaoRegistry.getWalletDaoInstance();
+  private final WalletDao walletDao = baseDaoRegistry.getWalletDaoInstance();
 
-  UserDao userDao = baseDaoRegistry.getUserDaoInstance();
-
-  @Override
-  public Double getWalletBalanceByWalletId(Integer id) throws WalletException {
-    Wallet existingWallet = walletDao.getWallet(id);
-    if (NullOrEmptyCheckerUtil.isNullOrEmpty(existingWallet)) {
-      throw new WalletException(400, "Wallet account not exist for user");
-    }
-    return existingWallet.getBalance();
-  }
-
-  @Override
-  public Double getWalletBalanceByUserId(Integer userId) throws WalletException {
-    Wallet existingWallet = walletDao.fetchWalletForUser(userId, WalletStatus.ACTIVE);
-    if (NullOrEmptyCheckerUtil.isNullOrEmpty(existingWallet)) {
-      throw new WalletException(400, "Wallet account not exist for user");
-    }
-    return existingWallet.getBalance();
-  }
+  private final UserDao userDao = baseDaoRegistry.getUserDaoInstance();
 
   @Override
   public Integer addWallet(User user) throws WalletException {
@@ -60,7 +42,7 @@ public class WallerServiceImpl implements WalletService {
   }
 
   @Override
-  public void addMoneyToWallet(Double amount, Integer walletId) throws WalletException {
+  public void addMoneyToWallet(Double amount, Integer walletId) {
     Wallet wallet = walletDao.getWallet(walletId);
     if (NullOrEmptyCheckerUtil.isNullOrEmpty(wallet) || WalletStatus.INACTIVE
         .equals(wallet.getWalletStatus())) {

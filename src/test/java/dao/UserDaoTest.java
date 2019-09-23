@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class UserDaoTest {
-  UserDao userDao;
+  private UserDao userDao;
 
   @Before
   public  void initialize(){
