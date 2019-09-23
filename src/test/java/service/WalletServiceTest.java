@@ -28,7 +28,7 @@ public class WalletServiceTest {
     return userDao.createUser(user);
   }
 
-  private String randomestring() {
+  private static String randomestring() {
     String generatedstring = RandomStringUtils.randomAlphabetic(8);
     return (generatedstring) + "@gmail.com";
   }
@@ -37,7 +37,7 @@ public class WalletServiceTest {
   public static void intializeUser() throws Exception {
     userDao = new UserDao();
     user = new User();
-    user.setEmail("abc@test.com");
+    user.setEmail(randomestring());
     user.setFirstName("Test");
     user.setLastName("Test");
     user.setMobile("981998898");
@@ -52,8 +52,11 @@ public class WalletServiceTest {
   }
 
   @Test
-  public void createWalletTest() {
-    Integer id = walletService.addWallet(walletUser);
+  public void createWalletTest() throws Exception {
+    user.setEmail(randomestring());
+    Integer userId = createUser(user);
+    User response = userDao.getUser(userId);
+    Integer id = walletService.addWallet(response);
     assertNotNull(id);
   }
 
@@ -69,12 +72,12 @@ public class WalletServiceTest {
   }
 
   @Test
-  public void addMoneyToWalletTest() throws Exception{
+  public void addMoneyToWalletTest() throws Exception {
     Integer walletId = walletService.addWallet(user);
-    walletService.addMoneyToWallet(500.00,walletId);
+    walletService.addMoneyToWallet(500.00, walletId);
     Wallet wallet = walletService.validateWallet(walletId);
-    assertEquals(wallet.getId(),walletId);
-    assertEquals(Double.valueOf(wallet.getBalance()),500.00D,0.00);
+    assertEquals(wallet.getId(), walletId);
+    assertEquals(Double.valueOf(wallet.getBalance()), 500.00D, 0.00);
 
   }
 

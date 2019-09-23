@@ -35,7 +35,7 @@ public class TransactionServiceTest {
     return walletDao.createWallet(wallet);
   }
 
-  private String randomestring() {
+  private static String randomestring() {
     String generatedstring = RandomStringUtils.randomAlphabetic(8);
     return (generatedstring) + "@gmail.com";
   }
@@ -49,8 +49,8 @@ public class TransactionServiceTest {
     senderWallet = new Wallet();
     beneficiaryWallet = new Wallet();
 
-    sender.setEmail("abc@sender.com");
-    beneficiary.setEmail("abc@beneficiary.com");
+    sender.setEmail(randomestring());
+    beneficiary.setEmail(randomestring());
     sender.setFirstName("Sender");
     beneficiary.setFirstName("Beneficiary");
     sender.setMobile("98178790");

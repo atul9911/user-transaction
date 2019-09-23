@@ -40,6 +40,7 @@ public class TransactionDao implements BaseDao {
   public List<Transaction> getTransactionUsingFilters(Map<String, ?> filters, Integer offset,
       Integer limit, Order orderBy) {
     Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+    session.beginTransaction();
     Criteria criteria = session.createCriteria(Transaction.class);
     addFilterToCriteria(criteria, filters);
     if (NullOrEmptyCheckerUtil.isNullOrEmpty(offset)) {
@@ -60,6 +61,7 @@ public class TransactionDao implements BaseDao {
     criteria.addOrder(orderBy);
     criteria.setFirstResult(offset);
     criteria.setMaxResults(limit);
+    session.getTransaction().commit();
     return criteria.list();
 
   }
