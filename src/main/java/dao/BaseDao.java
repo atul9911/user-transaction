@@ -1,5 +1,5 @@
 package dao;
 
-public interface BaseDaoService {
+public interface BaseDao {
  <T> T getDaoObject();
 }

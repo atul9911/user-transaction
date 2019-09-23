@@ -1,7 +1,10 @@
 package model;
 
+import enums.UserStatus;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -20,6 +23,10 @@ public class User extends BaseModel {
 
   @Column(name = "mobile", unique = false, nullable = false, length = 100)
   private String mobile;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "status", unique = false, nullable = false, length = 100)
+  private UserStatus status;
 
   public String getEmail() {
     return email;
@@ -51,5 +58,13 @@ public class User extends BaseModel {
 
   public void setMobile(String mobile) {
     this.mobile = mobile;
+  }
+
+  public UserStatus getStatus() {
+    return status;
+  }
+
+  public void setStatus(UserStatus status) {
+    this.status = status;
   }
 }

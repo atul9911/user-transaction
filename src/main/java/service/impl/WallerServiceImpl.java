@@ -1,28 +1,72 @@
 package service.impl;
 
+import dao.BaseDaoRegistry;
+import dao.UserDao;
+import dao.WalletDao;
+import enums.WalletStatus;
 import exception.WalletException;
-import pojo.WalletPojo;
+import model.User;
+import model.Wallet;
 import service.WalletService;
+import utils.NullOrEmptyCheckerUtil;
 
 public class WallerServiceImpl implements WalletService {
 
+  BaseDaoRegistry baseDaoRegistry = BaseDaoRegistry.getBaseDaoRegistry();
+
+  WalletDao walletDao = baseDaoRegistry.getWalletDaoInstance();
+
+  UserDao userDao = baseDaoRegistry.getUserDaoInstance();
+
   @Override
-  public WalletPojo addWallet() throws WalletException {
-    return null;
+  public Double getWalletBalanceByWalletId(Integer id) throws WalletException {
+    Wallet existingWallet = walletDao.getWallet(id);
+    if (NullOrEmptyCheckerUtil.isNullOrEmpty(existingWallet)) {
+      throw new WalletException(400, "Wallet account not exist for user");
+    }
+    return existingWallet.getBalance();
   }
 
   @Override
-  public WalletPojo validateWallet() throws WalletException {
-    return null;
+  public Double getWalletBalanceByUserId(Integer userId) throws WalletException {
+    Wallet existingWallet = walletDao.fetchWalletForUser(userId, WalletStatus.ACTIVE);
+    if (NullOrEmptyCheckerUtil.isNullOrEmpty(existingWallet)) {
+      throw new WalletException(400, "Wallet account not exist for user");
+    }
+    return existingWallet.getBalance();
   }
 
   @Override
-  public Double getWalletBalanceByWalletId(Integer id) throws Exception {
-    return null;
+  public Integer addWallet(User user) throws WalletException {
+    if (NullOrEmptyCheckerUtil.isNullOrEmpty(user) || NullOrEmptyCheckerUtil
+        .isNullOrEmpty(userDao.getUser(user.getId()))) {
+      throw new WalletException(400, "Invalid user");
+    }
+
+    Wallet existingWallet = walletDao.fetchWalletForUser(user.getId(), WalletStatus.ACTIVE);
+    if (!NullOrEmptyCheckerUtil.isNullOrEmpty(existingWallet)) {
+      throw new WalletException(400, "Wallet account already exist for user");
+    }
+    Wallet wallet = new Wallet();
+    wallet.setUserId(user.getId());
+    wallet.setWalletStatus(WalletStatus.ACTIVE);
+    wallet.setBalance(0.00);
+    return walletDao.createWallet(wallet);
   }
 
   @Override
-  public Double getWalletBalanceByUserId(Integer userId) throws Exception {
-    return null;
+  public Wallet validateWallet(Integer id) throws WalletException {
+    return walletDao.getWallet(id);
+  }
+
+  @Override
+  public void addMoneyToWallet(Double amount, Integer walletId) throws WalletException {
+    Wallet wallet = walletDao.getWallet(walletId);
+    if (NullOrEmptyCheckerUtil.isNullOrEmpty(wallet) || WalletStatus.INACTIVE
+        .equals(wallet.getWalletStatus())) {
+      throw new WalletException(404, "Wallet does not exist or inactive");
+    }
+    wallet.setBalance(wallet.getBalance() + amount);
+    walletDao.updateWallet(wallet);
   }
 }

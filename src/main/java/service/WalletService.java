@@ -1,11 +1,19 @@
 package service;
 
 import exception.WalletException;
+import model.User;
+import model.Wallet;
 import pojo.WalletPojo;
 
 public interface WalletService extends BaseService {
-  WalletPojo addWallet() throws WalletException;
-  WalletPojo validateWallet() throws  WalletException;
-  Double getWalletBalanceByWalletId(Integer id) throws Exception;
-  Double getWalletBalanceByUserId(Integer userId) throws Exception;
+
+  Integer addWallet(User user) throws WalletException;
+
+  Wallet validateWallet(Integer id) throws WalletException;
+
+  Double getWalletBalanceByWalletId(Integer id) throws WalletException;
+
+  Double getWalletBalanceByUserId(Integer userId) throws WalletException;
+
+  void addMoneyToWallet(Double amount, Integer walletId) throws Exception;
 }

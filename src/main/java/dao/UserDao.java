@@ -4,12 +4,14 @@ import model.User;
 import org.hibernate.Session;
 import utils.HibernateUtil;
 
-public class UserDao implements BaseDaoService {
-  public Integer createUser(User user) {
+public class UserDao implements BaseDao {
+
+  public Integer createUser(User user) throws Exception {
     Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     session.beginTransaction();
     Integer id = (Integer) session.save(user);
-    session.getTransaction().commit();;
+    session.getTransaction().commit();
+    ;
     return id;
   }
 

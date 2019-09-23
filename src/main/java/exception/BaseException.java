@@ -19,5 +19,6 @@ public class BaseException extends RuntimeException {
     return statusCode;
   }
 
+
 }
 

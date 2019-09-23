@@ -5,43 +5,43 @@ import enums.TransactionStatus;
 import java.util.Date;
 
 public class TransactionPojo {
-    Long senderWalletId;
-    Long beneficiaryWalletId;
-    Long senderUserId;
-    Long beneficiaryUserId;
+    Integer senderWalletId;
+    Integer beneficiaryWalletId;
+    Integer senderUserId;
+    Integer beneficiaryUserId;
     Double amount;
     TransactionStatus transactionStatus;
     Date createdAt;
 
-    public Long getSenderWalletId() {
+    public Integer getSenderWalletId() {
         return senderWalletId;
     }
 
-    public void setSenderWalletId(Long senderWalletId) {
+    public void setSenderWalletId(Integer senderWalletId) {
         this.senderWalletId = senderWalletId;
     }
 
-    public Long getBeneficiaryWalletId() {
+    public Integer getBeneficiaryWalletId() {
         return beneficiaryWalletId;
     }
 
-    public void setBeneficiaryWalletId(Long beneficiaryWalletId) {
+    public void setBeneficiaryWalletId(Integer beneficiaryWalletId) {
         this.beneficiaryWalletId = beneficiaryWalletId;
     }
 
-    public Long getSenderUserId() {
+    public Integer getSenderUserId() {
         return senderUserId;
     }
 
-    public void setSenderUserId(Long senderUserId) {
+    public void setSenderUserId(Integer senderUserId) {
         this.senderUserId = senderUserId;
     }
 
-    public Long getBeneficiaryUserId() {
+    public Integer getBeneficiaryUserId() {
         return beneficiaryUserId;
     }
 
-    public void setBeneficiaryUserId(Long beneficiaryUserId) {
+    public void setBeneficiaryUserId(Integer beneficiaryUserId) {
         this.beneficiaryUserId = beneficiaryUserId;
     }
 

@@ -1,5 +1,6 @@
 package dao;
 
+import enums.TransactionStatus;
 import java.util.List;
 import java.util.Map;
 import model.Transaction;
@@ -10,12 +11,13 @@ import org.hibernate.criterion.Restrictions;
 import utils.HibernateUtil;
 import utils.NullOrEmptyCheckerUtil;
 
-public class TransactionDao implements BaseDaoService {
+public class TransactionDao implements BaseDao {
 
   public Integer createTransaction(Transaction transaction) {
     Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     session.beginTransaction();
     Integer id = (Integer) session.save(transaction);
+    session.getTransaction().commit();
     return id;
   }
 
@@ -23,6 +25,15 @@ public class TransactionDao implements BaseDaoService {
     Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     session.beginTransaction();
     Transaction transaction = (Transaction) session.get(Transaction.class, id);
+    session.getTransaction().commit();
+    return transaction;
+  }
+
+  public Transaction updateTransaction(Transaction transaction) {
+    Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+    session.beginTransaction();
+    session.update(transaction);
+    session.getTransaction().commit();
     return transaction;
   }
 
