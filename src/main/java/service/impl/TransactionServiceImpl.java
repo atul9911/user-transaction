@@ -116,6 +116,11 @@ public class TransactionServiceImpl implements TransactionService {
       if (NullOrEmptyCheckerUtil.isNullOrEmpty(transaction)) {
         throw new TransactionException(404, "Transaction not found");
       }
+
+      if (!TransactionStatus.PENDING.equals(transaction.getTransactionStatus())) {
+        throw new TransactionException(400, "Transaction already completed");
+      }
+
       transactionLockDao.acquireLock(transactionId, TransactionStatus.SUCCESS);
       Wallet senderWallet = walletDao.getWallet(transaction.getSenderWalletId());
       Wallet beneficiaryWallet = walletDao.getWallet(transaction.getBeneficiaryWalletId());
@@ -127,10 +132,13 @@ public class TransactionServiceImpl implements TransactionService {
       transactionPojo.setAmount(transaction.getAmount());
       transactionPojo.setBeneficiaryUserId(transaction.getBeneficiaryUserId());
       transactionPojo.setSenderUserId(transaction.getSenderUserId());
+      transactionPojo.setTransactionStatus(TransactionStatus.SUCCESS);
       return transactionPojo;
     } catch (ConstraintViolationException e) {
       System.out.println("Transaction Already processing");
       throw new TransactionException(400, "Transaction Already in progress");
+    } catch (TransactionException e) {
+      throw e;
     } catch (Exception exc) {
       if (!NullOrEmptyCheckerUtil.isNullOrEmpty(transaction)) {
         transaction.setTransactionStatus(TransactionStatus.FAIL);

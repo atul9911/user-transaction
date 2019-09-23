@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import dao.UserDao;
 import dao.WalletDao;
+import enums.TransactionStatus;
 import enums.UserStatus;
 import enums.WalletStatus;
 import exception.TransactionException;
@@ -12,7 +13,6 @@ import model.User;
 import model.Wallet;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import pojo.TransactionPojo;
 
@@ -40,8 +40,8 @@ public class TransactionServiceTest {
     return (generatedstring) + "@gmail.com";
   }
 
-  @BeforeClass
-  public static void intializeUserAndWallet() throws Exception {
+  @Before
+  public void intializeUserAndWallet() throws Exception {
     userDao = new UserDao();
     walletDao = new WalletDao();
     sender = new User();
@@ -106,16 +106,7 @@ public class TransactionServiceTest {
     transactionPojo.setAmount(300.00);
     Integer transactionId = transactionService.initiateTransaction(transactionPojo);
     assertNotNull(transactionId);
-
-    TransactionPojo response = transactionService.doTransaction(transactionId);
-    Wallet senderUpdatedWallet = walletDao
-        .fetchWalletForUser(response.getSenderUserId(), WalletStatus.ACTIVE);
-    Wallet beneficiaryUpdatedWallet = walletDao
-        .fetchWalletForUser(response.getBeneficiaryUserId(), WalletStatus.ACTIVE);
-    assertEquals(senderUpdatedWallet.getBalance(), senderWallet.getBalance() - 300.00, 0.00);
-    assertEquals(beneficiaryUpdatedWallet.getBalance(), beneficiaryWallet.getBalance() + 300.00,
-        0.00);
-
+    executeTransaction(transactionId);
   }
 
   private void executeTransaction(Integer transactionId) throws TransactionException {
@@ -127,6 +118,8 @@ public class TransactionServiceTest {
     assertEquals(senderUpdatedWallet.getBalance(), senderWallet.getBalance() - 300.00, 0.00);
     assertEquals(beneficiaryUpdatedWallet.getBalance(),
         beneficiaryWallet.getBalance() + 300.00, 0.00);
+
+    assertEquals(response.getTransactionStatus(), TransactionStatus.SUCCESS);
   }
 
   @Test
@@ -162,7 +155,26 @@ public class TransactionServiceTest {
     Thread t2 = new Thread(task2);
     t1.start();
     t2.start();
+  }
 
+  @Test
+  public void doTransactionDuplicateTest() {
+    TransactionPojo transactionPojo = new TransactionPojo();
+    transactionPojo.setSenderUserId(sender.getId());
+    transactionPojo.setBeneficiaryUserId(beneficiary.getId());
+    transactionPojo.setSenderWalletId(senderWallet.getId());
+    transactionPojo.setBeneficiaryWalletId(beneficiaryWallet.getId());
+    transactionPojo.setAmount(300.00);
+    Integer transactionId = transactionService.initiateTransaction(transactionPojo);
+    assertNotNull(transactionId);
 
+    try {
+      executeTransaction(transactionId);
+      executeTransaction(transactionId);
+    } catch (TransactionException exc) {
+      assertEquals(exc.getStatusCode(), 400);
+      assertEquals(exc.getMessage(), "Transaction already completed");
+    }
   }
 }
+
