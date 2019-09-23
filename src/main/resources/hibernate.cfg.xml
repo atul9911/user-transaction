@@ -13,5 +13,8 @@
     <property name="hibernate.connection.url">jdbc:hsqldb:mem:moneytransfer</property>
     <property name="hibernate.hbm2ddl.auto">create</property>
     <mapping class="model.User"></mapping>
+    <mapping class="model.Wallet"></mapping>
+    <mapping class="model.Transaction"></mapping>
+    <mapping class="model.TransactionLock"></mapping>
   </session-factory>
 </hibernate-configuration>

@@ -3,7 +3,6 @@ package service;
 import exception.WalletException;
 import model.User;
 import model.Wallet;
-import pojo.WalletPojo;
 
 public interface WalletService extends BaseService {
 

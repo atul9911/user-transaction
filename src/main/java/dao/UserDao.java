@@ -11,7 +11,6 @@ public class UserDao implements BaseDao {
     session.beginTransaction();
     Integer id = (Integer) session.save(user);
     session.getTransaction().commit();
-    ;
     return id;
   }
 

@@ -39,6 +39,7 @@ public class WalletDao implements BaseDao {
     criteria.add(Restrictions.eq("userId", userId));
     criteria.add(Restrictions.eq("walletStatus", walletStatus));
     Wallet wallet = (Wallet) criteria.uniqueResult();
+    session.getTransaction().commit();
     return wallet;
   }
 

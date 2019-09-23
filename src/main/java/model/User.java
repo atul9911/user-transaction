@@ -18,7 +18,7 @@ public class User extends BaseModel {
   @Column(name = "FIRST_NAME", unique = false, nullable = false, length = 100)
   private String firstName;
 
-  @Column(name = "LAST_NAME", unique = false, nullable = false, length = 100)
+  @Column(name = "LAST_NAME", unique = false, nullable = true, length = 100)
   private String lastName;
 
   @Column(name = "mobile", unique = false, nullable = false, length = 100)
