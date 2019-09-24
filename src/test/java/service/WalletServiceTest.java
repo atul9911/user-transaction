@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import dao.UserDao;
 import enums.UserStatus;
+import exception.WalletException;
 import model.User;
 import model.Wallet;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -39,7 +40,6 @@ public class WalletServiceTest {
     user.setMobile("981998898");
     user.setStatus(UserStatus.ACTIVE);
     Integer userId = createUser(user);
-    User walletUser = userDao.getUser(userId);
   }
 
   @Before
@@ -69,12 +69,46 @@ public class WalletServiceTest {
 
   @Test
   public void addMoneyToWalletTest() throws Exception {
-    Integer walletId = walletService.addWallet(user);
+    user.setEmail(randomestring());
+    Integer userId = createUser(user);
+    User response = userDao.getUser(userId);
+    Integer walletId = walletService.addWallet(response);
     walletService.addMoneyToWallet(500.00, walletId);
     Wallet wallet = walletService.validateWallet(walletId);
     assertEquals(wallet.getId(), walletId);
     assertEquals(wallet.getBalance(), 500.00D, 0.00);
+  }
 
+  @Test
+  public void duplicateWalletTest() {
+    try {
+      user.setEmail(randomestring());
+      Integer userId = createUser(user);
+      User response = userDao.getUser(userId);
+      walletService.addWallet(response);
+      walletService.addWallet(user);
+    } catch (WalletException wall) {
+      assertEquals(wall.getMessage(), "Wallet account already exist for user");
+      assertEquals(wall.getStatusCode(), 400);
+    } catch (Exception exc) {
+    }
+  }
+
+  @Test
+  public void addMoneyToWalletTestNegative() throws Exception {
+    try {
+      user.setEmail(randomestring());
+      Integer userId = createUser(user);
+      User response = userDao.getUser(userId);
+      Integer walletId = walletService.addWallet(user);
+      walletService.addMoneyToWallet(-1.00, walletId);
+      Wallet wallet = walletService.validateWallet(walletId);
+      assertEquals(wallet.getId(), walletId);
+      assertEquals(wallet.getBalance(), 500.00D, 0.00);
+    } catch (WalletException wall) {
+      assertEquals(wall.getMessage(), "Invalid Amount");
+      assertEquals(wall.getStatusCode(), 400);
+    }
   }
 
 }

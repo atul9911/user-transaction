@@ -48,6 +48,10 @@ public class WallerServiceImpl implements WalletService {
         .equals(wallet.getWalletStatus())) {
       throw new WalletException(404, "Wallet does not exist or inactive");
     }
+
+    if (amount < 0.00) {
+      throw new WalletException(400, "Invalid Amount");
+    }
     wallet.setBalance(wallet.getBalance() + amount);
     walletDao.updateWallet(wallet);
   }

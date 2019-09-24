@@ -8,8 +8,6 @@ import dao.WalletDao;
 import enums.TransactionStatus;
 import enums.UserStatus;
 import exception.TransactionException;
-import exception.UserException;
-import java.sql.SQLException;
 import model.Transaction;
 import model.User;
 import model.Wallet;
@@ -31,11 +29,12 @@ public class TransactionServiceImpl implements TransactionService {
 
   private final WalletDao walletDao = baseDaoRegistry.getWalletDaoInstance();
 
-  private final TransactionLockDao transactionLockDao = baseDaoRegistry.getTransactionLockDaoInstance();
+  private final TransactionLockDao transactionLockDao = baseDaoRegistry
+      .getTransactionLockDaoInstance();
 
   @Override
   public Integer initiateTransaction(TransactionPojo transactionPojo)
-      throws TransactionException, UserException {
+      throws TransactionException {
     validateTransactionRequest(transactionPojo);
     validateBeneficiaryAndSender(transactionPojo);
     return generateTransactionId(transactionPojo);
@@ -54,27 +53,27 @@ public class TransactionServiceImpl implements TransactionService {
   }
 
   private void validateBeneficiaryAndSender(TransactionPojo transactionPojo)
-      throws UserException, TransactionException {
+      throws TransactionException {
     User beneficiary = userDao.getUser(transactionPojo.getBeneficiaryUserId());
     if (NullOrEmptyCheckerUtil.isNullOrEmpty(beneficiary) || UserStatus.INACTIVE
         .equals(beneficiary.getStatus())) {
-      throw new UserException(404, "Beneficiary not active or not exist");
+      throw new TransactionException(404, "Beneficiary not active or not exist");
     }
 
     User sender = userDao.getUser(transactionPojo.getSenderUserId());
     if (NullOrEmptyCheckerUtil.isNullOrEmpty(sender) || UserStatus.INACTIVE
         .equals(sender.getStatus())) {
-      throw new UserException(404, "Invalid Sender or not active");
+      throw new TransactionException(404, "Invalid Sender or not active");
     }
 
     if (NullOrEmptyCheckerUtil
         .isNullOrEmpty(walletDao.getWallet(transactionPojo.getBeneficiaryWalletId()))) {
-      throw new UserException(404, "Invalid Beneficiary Wallet");
+      throw new TransactionException(404, "Invalid Beneficiary Wallet");
     }
 
     Wallet senderWallet = walletDao.getWallet(transactionPojo.getSenderWalletId());
     if (NullOrEmptyCheckerUtil.isNullOrEmpty(senderWallet)) {
-      throw new UserException(404, "Invalid Sender wallet");
+      throw new TransactionException(404, "Invalid Sender wallet");
     }
 
     if (senderWallet.getBalance() < transactionPojo.getAmount()) {
@@ -97,7 +96,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     if (NullOrEmptyCheckerUtil.isNullOrEmpty(transactionPojo.getSenderWalletId())) {
-      throw new TransactionException(400, "Invalid sender wallet id id");
+      throw new TransactionException(400, "Invalid sender wallet id");
     }
 
     if (NullOrEmptyCheckerUtil.isNullOrEmpty(transactionPojo.getAmount())

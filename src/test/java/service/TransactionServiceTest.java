@@ -168,5 +168,185 @@ public class TransactionServiceTest {
       assertEquals(exc.getMessage(), "Transaction already completed");
     }
   }
+
+  @Test
+  public void negativeAmountTest() {
+    TransactionPojo transactionPojo = new TransactionPojo();
+    transactionPojo.setSenderUserId(sender.getId());
+    transactionPojo.setBeneficiaryUserId(beneficiary.getId());
+    transactionPojo.setSenderWalletId(senderWallet.getId());
+    transactionPojo.setBeneficiaryWalletId(beneficiaryWallet.getId());
+    transactionPojo.setAmount(-1.00);
+    try {
+      transactionService.initiateTransaction(transactionPojo);
+    } catch (TransactionException exc) {
+      assertEquals(exc.getStatusCode(), 400);
+      assertEquals(exc.getMessage(), "Invalid amount or amount must be greater than 0");
+    }
+  }
+
+  @Test
+  public void invalidSenderTest() {
+    TransactionPojo transactionPojo = new TransactionPojo();
+    transactionPojo.setSenderUserId(12345);
+    transactionPojo.setBeneficiaryUserId(beneficiary.getId());
+    transactionPojo.setSenderWalletId(senderWallet.getId());
+    transactionPojo.setBeneficiaryWalletId(beneficiaryWallet.getId());
+    transactionPojo.setAmount(300.00);
+    try {
+      transactionService.initiateTransaction(transactionPojo);
+    } catch (TransactionException exc) {
+      assertEquals(exc.getStatusCode(), 404);
+      assertEquals(exc.getMessage(), "Invalid Sender or not active");
+    }
+  }
+
+  @Test
+  public void invalidBeneficiaryTest() {
+    TransactionPojo transactionPojo = new TransactionPojo();
+    transactionPojo.setSenderUserId(sender.getId());
+    transactionPojo.setBeneficiaryUserId(12345);
+    transactionPojo.setSenderWalletId(senderWallet.getId());
+    transactionPojo.setBeneficiaryWalletId(beneficiaryWallet.getId());
+    transactionPojo.setAmount(300.00);
+    try {
+      transactionService.initiateTransaction(transactionPojo);
+    } catch (TransactionException exc) {
+      assertEquals(exc.getStatusCode(), 404);
+      assertEquals(exc.getMessage(), "Beneficiary not active or not exist");
+    }
+  }
+
+  @Test
+  public void invalidSenderWalletTest() {
+    TransactionPojo transactionPojo = new TransactionPojo();
+    transactionPojo.setSenderUserId(sender.getId());
+    transactionPojo.setBeneficiaryUserId(beneficiary.getId());
+    transactionPojo.setSenderWalletId(1234);
+    transactionPojo.setBeneficiaryWalletId(beneficiaryWallet.getId());
+    transactionPojo.setAmount(300.00);
+    try {
+      transactionService.initiateTransaction(transactionPojo);
+    } catch (TransactionException exc) {
+      assertEquals(exc.getStatusCode(), 404);
+      assertEquals(exc.getMessage(), "Invalid Sender wallet");
+    }
+  }
+
+  @Test
+  public void invalidBaneficiaryWalletTest() {
+    TransactionPojo transactionPojo = new TransactionPojo();
+    transactionPojo.setSenderUserId(sender.getId());
+    transactionPojo.setBeneficiaryUserId(beneficiary.getId());
+    transactionPojo.setSenderWalletId(senderWallet.getId());
+    transactionPojo.setBeneficiaryWalletId(12345);
+    transactionPojo.setAmount(300.00);
+    try {
+      transactionService.initiateTransaction(transactionPojo);
+    } catch (TransactionException exc) {
+      assertEquals(exc.getStatusCode(), 404);
+      assertEquals(exc.getMessage(), "Invalid Beneficiary Wallet");
+    }
+  }
+
+  @Test
+  public void bigAmountTest() {
+    TransactionPojo transactionPojo = new TransactionPojo();
+    transactionPojo.setSenderUserId(sender.getId());
+    transactionPojo.setBeneficiaryUserId(beneficiary.getId());
+    transactionPojo.setSenderWalletId(senderWallet.getId());
+    transactionPojo.setBeneficiaryWalletId(beneficiaryWallet.getId());
+    transactionPojo.setAmount(6000.00);
+    try {
+      transactionService.initiateTransaction(transactionPojo);
+    } catch (TransactionException exc) {
+      assertEquals(exc.getStatusCode(), 400);
+      assertEquals(exc.getMessage(), "Insufficient Balance in sender wallet account");
+    }
+  }
+
+
+
+  @Test
+  public void nullSenderTest() {
+    TransactionPojo transactionPojo = new TransactionPojo();
+    transactionPojo.setSenderUserId(null);
+    transactionPojo.setBeneficiaryUserId(beneficiary.getId());
+    transactionPojo.setSenderWalletId(senderWallet.getId());
+    transactionPojo.setBeneficiaryWalletId(beneficiaryWallet.getId());
+    transactionPojo.setAmount(300.00);
+    try {
+      transactionService.initiateTransaction(transactionPojo);
+    } catch (TransactionException exc) {
+      assertEquals(exc.getStatusCode(), 400);
+      assertEquals(exc.getMessage(), "Invalid sender id");
+    }
+  }
+
+  @Test
+  public void nullBeneficiaryTest() {
+    TransactionPojo transactionPojo = new TransactionPojo();
+    transactionPojo.setSenderUserId(sender.getId());
+    transactionPojo.setBeneficiaryUserId(null);
+    transactionPojo.setSenderWalletId(senderWallet.getId());
+    transactionPojo.setBeneficiaryWalletId(beneficiaryWallet.getId());
+    transactionPojo.setAmount(300.00);
+    try {
+      transactionService.initiateTransaction(transactionPojo);
+    } catch (TransactionException exc) {
+      assertEquals(exc.getStatusCode(), 400);
+      assertEquals(exc.getMessage(), "Invalid beneficiary id");
+    }
+  }
+
+  @Test
+  public void nullSenderWalletTest() {
+    TransactionPojo transactionPojo = new TransactionPojo();
+    transactionPojo.setSenderUserId(sender.getId());
+    transactionPojo.setBeneficiaryUserId(beneficiary.getId());
+    transactionPojo.setSenderWalletId(null);
+    transactionPojo.setBeneficiaryWalletId(beneficiaryWallet.getId());
+    transactionPojo.setAmount(300.00);
+    try {
+      transactionService.initiateTransaction(transactionPojo);
+    } catch (TransactionException exc) {
+      assertEquals(exc.getStatusCode(), 400);
+      assertEquals(exc.getMessage(), "Invalid sender wallet id");
+    }
+  }
+
+  @Test
+  public void nullBaneficiaryWalletTest() {
+    TransactionPojo transactionPojo = new TransactionPojo();
+    transactionPojo.setSenderUserId(sender.getId());
+    transactionPojo.setBeneficiaryUserId(beneficiary.getId());
+    transactionPojo.setSenderWalletId(senderWallet.getId());
+    transactionPojo.setBeneficiaryWalletId(null);
+    transactionPojo.setAmount(300.00);
+    try {
+      transactionService.initiateTransaction(transactionPojo);
+    } catch (TransactionException exc) {
+      assertEquals(exc.getStatusCode(), 400);
+      assertEquals(exc.getMessage(), "Invalid beneficiary wallet id");
+    }
+  }
+
+  @Test
+  public void nullAmountTest() {
+    TransactionPojo transactionPojo = new TransactionPojo();
+    transactionPojo.setSenderUserId(sender.getId());
+    transactionPojo.setBeneficiaryUserId(beneficiary.getId());
+    transactionPojo.setSenderWalletId(senderWallet.getId());
+    transactionPojo.setBeneficiaryWalletId(beneficiaryWallet.getId());
+    transactionPojo.setAmount(null);
+    try {
+      transactionService.initiateTransaction(transactionPojo);
+    } catch (TransactionException exc) {
+      assertEquals(exc.getStatusCode(), 400);
+      assertEquals(exc.getMessage(), "Invalid amount or amount must be greater than 0");
+    }
+  }
+
+
 }
 

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Wallet")
 public class Wallet extends BaseModel {
-  @Column(name = "USERID", unique = true, nullable = false, length = 100)
+  @Column(name = "USERID", unique = false, nullable = false, length = 100)
   private Integer userId;
 
   @Enumerated(EnumType.STRING)

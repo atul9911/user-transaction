@@ -10,15 +10,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class UserDaoTest {
+
   private UserDao userDao;
 
   @Before
-  public  void initialize(){
+  public void initialize() {
     userDao = new UserDao();
   }
 
   @Test
-  public void createUserTest() throws Exception{
+  public void createUserTest() {
     User user = new User();
     user.setEmail("abc@test.com");
     user.setFirstName("Test");
@@ -30,7 +31,7 @@ public class UserDaoTest {
   }
 
   @Test
-  public void fetchUserTest() throws Exception{
+  public void fetchUserTest() {
     User user = new User();
     user.setEmail("abc@example.com");
     user.setFirstName("Test");
@@ -41,10 +42,10 @@ public class UserDaoTest {
 
     User u = userDao.getUser(id);
     assertNotNull(u);
-    assertEquals(u.getEmail(),user.getEmail());
-    assertEquals(u.getFirstName(),user.getFirstName());
-    assertEquals(u.getId(),id);
-    assertEquals(u.getLastName(),user.getLastName());
-    assertEquals(u.getMobile(),user.getMobile());
+    assertEquals(u.getEmail(), user.getEmail());
+    assertEquals(u.getFirstName(), user.getFirstName());
+    assertEquals(u.getId(), id);
+    assertEquals(u.getLastName(), user.getLastName());
+    assertEquals(u.getMobile(), user.getMobile());
   }
 }
