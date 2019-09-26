@@ -2,7 +2,12 @@ package exception;
 
 public class UserException extends BaseException {
 
-  public UserException(int statusCode, String msg) {
-    super(statusCode, msg);
-  }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public UserException(int statusCode, String msg) {
+		super(statusCode, msg);
+	}
 }

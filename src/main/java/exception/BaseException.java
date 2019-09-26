@@ -1,24 +1,26 @@
 package exception;
 
-
 public class BaseException extends RuntimeException {
 
-  private final int statusCode;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-  BaseException() {
-    super();
-    this.statusCode = 500;
-  }
+	private final int statusCode;
 
-  BaseException(int statusCode, String message) {
-    super(message);
-    this.statusCode = statusCode;
-  }
+	BaseException() {
+		super();
+		this.statusCode = 500;
+	}
 
-  public int getStatusCode() {
-    return statusCode;
-  }
+	BaseException(int statusCode, String message) {
+		super(message);
+		this.statusCode = statusCode;
+	}
 
+	public int getStatusCode() {
+		return statusCode;
+	}
 
 }
-

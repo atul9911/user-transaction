@@ -29,7 +29,6 @@ public class TransactionDao implements BaseDao {
     session.getTransaction().commit();
   }
 
-  @SuppressWarnings("unchecked")
   public TransactionDao getDaoObject() {
     return new TransactionDao();
   }

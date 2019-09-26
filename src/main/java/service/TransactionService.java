@@ -1,7 +1,6 @@
 package service;
 
 import exception.TransactionException;
-import java.util.List;
 import pojo.TransactionPojo;
 
 public interface TransactionService extends BaseService {

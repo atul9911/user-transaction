@@ -3,15 +3,16 @@ package service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import dao.UserDao;
 import enums.UserStatus;
 import exception.WalletException;
 import model.User;
 import model.Wallet;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 public class WalletServiceTest {
 
@@ -39,7 +40,7 @@ public class WalletServiceTest {
     user.setLastName("Test");
     user.setMobile("981998898");
     user.setStatus(UserStatus.ACTIVE);
-    Integer userId = createUser(user);
+    createUser(user);
   }
 
   @Before
@@ -99,7 +100,7 @@ public class WalletServiceTest {
     try {
       user.setEmail(randomestring());
       Integer userId = createUser(user);
-      User response = userDao.getUser(userId);
+      userDao.getUser(userId);
       Integer walletId = walletService.addWallet(user);
       walletService.addMoneyToWallet(-1.00, walletId);
       Wallet wallet = walletService.validateWallet(walletId);

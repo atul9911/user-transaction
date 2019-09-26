@@ -22,7 +22,6 @@ public class UserDao implements BaseDao {
     return user;
   }
 
-  @SuppressWarnings("unchecked")
   public UserDao getDaoObject() {
     return new UserDao();
   }

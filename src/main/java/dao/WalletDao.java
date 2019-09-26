@@ -43,7 +43,6 @@ public class WalletDao implements BaseDao {
     return wallet;
   }
 
-  @SuppressWarnings("unchecked")
   public WalletDao getDaoObject() {
     return new WalletDao();
   }

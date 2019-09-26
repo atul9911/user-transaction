@@ -1,10 +1,9 @@
 package dao;
 
-import enums.TransactionStatus;
-import java.sql.SQLException;
-import model.TransactionLock;
-import org.hibernate.Query;
 import org.hibernate.Session;
+
+import enums.TransactionStatus;
+import model.TransactionLock;
 import utils.HibernateUtil;
 
 public class TransactionLockDao implements BaseDao {
@@ -19,7 +18,6 @@ public class TransactionLockDao implements BaseDao {
     session.getTransaction().commit();
   }
 
-  @SuppressWarnings("unchecked")
   public TransactionLockDao getDaoObject() {
     return new TransactionLockDao();
   }

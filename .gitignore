@@ -40,3 +40,4 @@ tomcat.*/
 /mvnw.cmd
 
 .DS_Store
+/bin/
